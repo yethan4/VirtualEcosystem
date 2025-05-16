@@ -1,0 +1,35 @@
+# JetBrains IDE files
+.idea/
+*.iml
+
+# CLion build directories (CMake default)
+cmake-build-*/
+cmake-build-debug/
+cmake-build-release/
+
+# General build files
+build/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Compiled object files and executables
+*.o
+*.obj
+*.so
+*.a
+*.dll
+*.lib
+*.exe
+*.out
+
+# OS-specific files
+.DS_Store       # macOS
+Thumbs.db       # Windows
+
+# Log files
+*.log
