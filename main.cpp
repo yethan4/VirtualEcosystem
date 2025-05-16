@@ -1,5 +1,10 @@
 #include <iostream>
+#include "organizm.h"
 
-int main() {
+using namespace std;
+
+int main()
+{
+
     return 0;
 }
