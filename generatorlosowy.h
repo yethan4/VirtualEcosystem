@@ -1,16 +1,23 @@
-//
-// Created by yethan on 5/16/25.
-//
-
 #ifndef GENERATORLOSOWY_H
 #define GENERATORLOSOWY_H
 
+#include <random>
 
+class GeneratorLosowy
+{
+private:
+    static std::random_device device;
+    GeneratorLosowy(){};
 
-class generatorlosowy {
+public:
+    static unsigned short losujPomiedzy
+    (unsigned short min, unsigned short max);
 
+    static long losujPomiedzy(long min, long max);
+    static int losujOdZeraDo(int max);
 };
+typedef GeneratorLosowy GEN; 
 
 
 
-#endif //GENERATORLOSOWY_H
+#endif 
