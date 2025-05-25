@@ -1,66 +1,83 @@
 #include <iostream>
+#include <string>
+
 #include "organizm.h"
 #include "ustawienia.h"
 #include "generatorlosowy.h"
+#include "sasiedztwo.h"
 
 using namespace std;
 
-void wyswietl(UstawieniaSymulacji & UST){
-    cout << "Znak glon:" << UST.znakGlon
-         << " zycieMin=" << UST.glonZycieMin
-         << " zycieMax=" << UST.glonZycieMax << endl;
+string nazwaRodzaju(RodzajMieszkanca rodzaj) {
+    switch (rodzaj) {
+        case GLON: return "GLON";
+        case GRZYB: return "GRZYB";
+        case BAKTERIA: return "BAKTERIA";
+        case PUSTKA: return "PUSTKA";
+        case SCIANA: return "ŚCIANA";
+        case TRUP: return "TRUP";
+        case NIEZNANE: return "NIEZNANE";
+        default: return "NIEZNANE";
+    }
+    return "NIEZNANE";
 }
+
 
 int main()
 {
-    //1. Dostep do obiektu klasy UstawieniaSymulacji
-    UstawieniaSymulacji & UST1
-            = UstawieniaSymulacji::pobierzUstawienia();
-    UstawieniaSymulacji & UST2
-            = UstawieniaSymulacji::pobierzUstawienia();
-    UstawieniaSymulacji & UST3
-            = UstawieniaSymulacji::pobierzUstawienia();
+    cout << "test";
+    Sasiedztwo sasiedztwo;
 
-    cout << "Pobranie ustawien 3x" << endl;
-    cout << "UST1: "; wyswietl(UST1);
-    cout << "UST2: "; wyswietl(UST2);
-    cout << "UST3: "; wyswietl(UST3);
+    sasiedztwo.okreslSasiada(P, GLON);
+    sasiedztwo.okreslSasiada(PG, GRZYB);
+    sasiedztwo.okreslSasiada(G, GRZYB);
+    sasiedztwo.okreslSasiada(LG, GLON);
+    sasiedztwo.okreslSasiada(L, BAKTERIA);
+    sasiedztwo.okreslSasiada(LD, BAKTERIA);
+    sasiedztwo.okreslSasiada(D, GLON);
+    sasiedztwo.okreslSasiada(PD, PUSTKA);
 
+    cout << "Przegląd sąsiedztwa:" << endl;
 
-    cout << endl << "Zmiana wartosci tylko 1x" << endl;
-    UST2.glonZycieMax = 100;
-    cout << "UST1: "; wyswietl(UST1);
-    cout << "UST2: "; wyswietl(UST2);
-    cout << "UST3: "; wyswietl(UST3);
+    for (int i = 0; i < 8; i++) {
+        Polozenie p = static_cast<Polozenie>(i);
+        RodzajMieszkanca r = sasiedztwo.ktoJestSasiadem(p);
 
-	//Testy dla generatorlosowy.cpp
-    cout << "Liczby losowe typu int:" << endl;
-    cout << " od 0 do 5: ";
-    for(int i=0; i<10; i++)
-        cout << GEN::losujOdZeraDo(5) << " ";
-    cout << endl << " od 0 do 3: ";
-    for(int i=0; i<10; i++)
-        cout << GEN::losujOdZeraDo(3) << " ";
-    cout << endl << " od 0 do 20: ";
-    for(int i=0; i<10; i++)
-        cout << GEN::losujOdZeraDo(20) << " ";
+        cout << "polozenie=" << p << " rodzaj="
+             << nazwaRodzaju(r) << endl;
+    }
 
-    cout << endl << endl;
+    cout << endl << "Policzenie sasiadów"
+         << " określonego rodzaju:" << endl
+         << " glony=" << sasiedztwo.ile(GLON) << endl
+         << " grzyby=" << sasiedztwo.ile(GRZYB) << endl
+         << " trupy=" << sasiedztwo.ile(TRUP) << endl;
 
-    cout << "Liczby losowe typu long: " << endl;
-    cout << " od -2 do 2:";
-    for(int i=0; i<10; i++)
-        cout << GEN::losujPomiedzy(-2L, 2L) <<" ";
+    cout << endl << "Wylosowanie sasiada:" << endl
+         << " glon -> "
+         << sasiedztwo.losujSasiada(GLON) << endl
+         << " pustka -> "
+         << sasiedztwo.losujSasiada(PUSTKA) << endl
+         << " trup -> "
+         << sasiedztwo.losujSasiada(TRUP) << endl;
 
-    cout << endl << endl
-         << "Liczby losowe typu unsigned short: " << endl;
-    cout << " od 2 do 6: ";
-    unsigned short min=2, max=6;
+    long wiersz, kolumna;
+    cout << endl
+         << "Zmiana indeksów [5][7]"
+         << " wg polozenia:" << endl;
 
-    for(int i=0; i<10; i++)
-        cout << GEN::losujPomiedzy(max, min) <<" ";
+    for (int i = 0; i < 8; i++) {
+        Polozenie p = static_cast<Polozenie>(i);
+        wiersz = 5;
+        kolumna = 7;
 
-    cout << endl << endl;
+        Sasiedztwo::zmienIdeksyWgPolozenia(p, wiersz, kolumna);
+
+        cout << " położenie: " << p << " ->[" << wiersz
+             << "][" << kolumna << "]" << endl;
+    }
+
+    cout << endl;
 
     return 0;
 }
