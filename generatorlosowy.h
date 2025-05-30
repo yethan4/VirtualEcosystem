@@ -3,6 +3,17 @@
 
 #include <random>
 
+class Indeks2D
+{
+public:
+    unsigned int wiersz, kolumna;
+    Indeks2D(unsigned int _w=0, unsigned int _k=0)
+        :wiersz(_w), kolumna(_k){}
+};
+
+typedef std::vector<Indeks2D> WektorIndeksow2D;
+
+
 class GeneratorLosowy
 {
 private:
@@ -15,9 +26,11 @@ public:
 
     static long losujPomiedzy(long min, long max);
     static int losujOdZeraDo(int max);
-};
-typedef GeneratorLosowy GEN; 
 
+    static WektorIndeksow2D indeksyLosowe(unsigned int wiersze,
+                                            unsigned int kolumny);
+};
+typedef GeneratorLosowy GEN;
 
 
 #endif 
