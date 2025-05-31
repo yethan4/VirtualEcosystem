@@ -44,8 +44,13 @@ public:
     void wykonajKrokSymulacji();
 
     std::string doTekstu() const;
+
+    void operator++(int) { wykonajKrokSymulacji(); }
+
+    bool operator!() { return !martwy(); }
 };
 
+std::ostream& operator<<(std::ostream& strumien, const Srodowisko& srodowisko);
 
 
 #endif //SRODOWISKO_H

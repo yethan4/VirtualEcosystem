@@ -1,7 +1,4 @@
-//
-// Created by yethan on 5/16/25.
-//
-
+#include <iostream>
 #include "srodowisko.h"
 #include "nisza.h"
 #include "generatorlosowy.h"
@@ -160,4 +157,10 @@ std::string Srodowisko::doTekstu() const
         + '\n';
 
     return tekst;
+}
+
+std::ostream& operator<<(std::ostream& strumien, const Srodowisko& srodowisko)
+{
+    strumien << srodowisko.doTekstu();
+    return strumien;
 }

@@ -21,12 +21,16 @@ int main()
     unsigned long i = 0;
 
     do {
+#ifdef _WIN32
+        system("cls");
+#else
         system("clear");
-        cout << "Krok symulacji: " << i << endl
-             << endl << ekoSystem.doTekstu() << endl;
+#endif
 
-        cin.ignore(1);
-        ekoSystem.wykonajKrokSymulacji();
+        std::cout << "Krok symulacji: " << i << std::endl;
+        std::cout << std::endl << ekoSystem << std::endl;
+        std::cin.ignore(1);
+        ekoSystem++;
         i++;
     } while (i < 200 && !ekoSystem.martwy());
 
