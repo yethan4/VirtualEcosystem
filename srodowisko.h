@@ -48,6 +48,8 @@ public:
     void operator++(int) { wykonajKrokSymulacji(); }
 
     bool operator!() { return !martwy(); }
+
+    static Srodowisko czytajZPliku(std::string nazwaPliku);
 };
 
 std::ostream& operator<<(std::ostream& strumien, const Srodowisko& srodowisko);

@@ -18,4 +18,6 @@ add_executable(virtualEcosystem main.cpp
         sasiedztwo.h
         srodowisko.cpp
         srodowisko.h
-        ustawienia.h)
+        ustawienia.h
+        zlab12.cpp
+        zlab12.h)

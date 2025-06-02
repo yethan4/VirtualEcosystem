@@ -1,22 +1,17 @@
 #include <iostream>
-using namespace std;
+#include <fstream>
 
 #include "nisza.h"
 #include "osobniki.h"
-#include "sasiedztwo.h"
 
-int main()
-{
-    Srodowisko ekoSystem(8, 12);
+using namespace std;
 
-    ekoSystem.lokuj(new Glon(), 0, 10);
-    ekoSystem.lokuj(new Glon(), 1, 10);
-    ekoSystem.lokuj(new Glon(), 1, 13);
-    ekoSystem.lokuj(new Glon(), 3, 10);
-    ekoSystem.lokuj(new Grzyb(), 1, 11);
-    ekoSystem.lokuj(new Grzyb(), 0, 0);
-    ekoSystem.lokuj(new Bakteria(), 3, 3);
-    ekoSystem.lokuj(new Bakteria(), 2, 6);
+int main() {
+    Srodowisko ekoSystem = Srodowisko::czytajZPliku("../start.txt");
+
+    ofstream plikWynikowy("../symulacja.txt");
+    if(!plikWynikowy.is_open()) return 1;
+    string stanSymulacji;
 
     unsigned long i = 0;
 
@@ -26,14 +21,19 @@ int main()
 #else
         system("clear");
 #endif
+        cout << "Krok symulacji: " << i << endl;
+        plikWynikowy << "Krok symulacji: " << i << endl;
+        stanSymulacji = ekoSystem.doTekstu();
 
-        std::cout << "Krok symulacji: " << i << std::endl;
-        std::cout << std::endl << ekoSystem << std::endl;
-        std::cin.ignore(1);
+        cout << endl << stanSymulacji << endl;
+        plikWynikowy << stanSymulacji << endl;
+        cin.ignore(1);
         ekoSystem++;
         i++;
-    } while (i < 200 && !ekoSystem.martwy());
+    } while(i < 200 && !ekoSystem);
 
     cout << endl;
+
+    plikWynikowy.close();
     return 0;
 }
